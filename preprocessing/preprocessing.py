@@ -24,7 +24,7 @@ def clean_text(doc):
     return doc
 
 # Load train data
-file_name_train = Path(__file__).parent.parent / "data" / "train_data.csv"
+file_name_train = Path(__file__).parent.parent / "data" / "raw" / "train_data_raw.csv"
 df_train = pd.read_csv(file_name_train, sep=';')
 df_train = df_train.drop(columns=["article_id"])
 df_train['essay'] = df_train['essay'].apply(lambda x: clean_text(x))
@@ -37,7 +37,7 @@ train_dataset = train_dataset.reset_index(drop=True)
 val_dataset = val_dataset.reset_index(drop=True)
 
 # Load test data
-file_name_test = Path(__file__).parent.parent / "data" / "test_data.csv"
+file_name_test = Path(__file__).parent.parent / "data" / "raw" / "test_data_raw.csv"
 df_test = pd.read_csv(file_name_test, sep=';')
 df_test = df_test.drop(columns=["article_id"])
 df_test['essay'] = df_test['essay'].apply(lambda x: clean_text(x))
@@ -53,3 +53,9 @@ print("Length of Validation Dataset:", len(val_dataset))
 print("\nTest Dataset:")
 print(df_test.head())
 print("Length of Test Dataset:", len(df_test))
+
+# Save the datasets as csv files
+train_dataset.to_csv(Path(__file__).parent.parent / "data" / "preprocessed" / "train_dataset.csv", index=False)
+val_dataset.to_csv(Path(__file__).parent.parent / "data" / "preprocessed" / "val_dataset.csv", index=False)
+df_test.to_csv(Path(__file__).parent.parent / "data" / "preprocessed" / "test_dataset.csv", index=False)
+print("Preprocessing done. The datasets are saved as csv files in the 'preprocessed' folder.")
