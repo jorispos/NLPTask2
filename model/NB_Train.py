@@ -6,19 +6,17 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import pickle as pkl
+import pandas as pd
 
 # Paths to preprocessed data
 train_path = Path(__file__).parent.parent / "data" / "preprocessed" / "train_dataset.csv"
 val_path = Path(__file__).parent.parent / "data" / "preprocessed" / "val_dataset.csv"
 output_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
 
-def load_data(file_path):
-    return pd.read_csv(file_path)
-
 def prepare_data(train_path, val_path):
     # Load datasets
-    train_dataset = load_data(train_path)
-    val_dataset = load_data(val_path)
+    train_dataset = pd.read_csv(train_path)
+    val_dataset = pd.read_csv(val_path)
     
     # Vectorize text
     print("Vectorizing the text...")

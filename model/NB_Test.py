@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import pickle as pkl
+import pandas as pd
 
 # Paths to training data and model
 model_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
@@ -13,9 +14,6 @@ def load_model(model_path):
     with open(model_path, 'rb') as f:
         model, vectorizer, tfidf_transformer = pkl.load(f)
     return model, vectorizer, tfidf_transformer
-
-def load_data(file_path):
-    return pd.read_csv(file_path)
 
 def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     X = vectorizer.transform(dataset['essay'])
@@ -49,6 +47,6 @@ if __name__ == "__main__":
     # Load model + vectorizer
     model, vectorizer, tfidf_transformer = load_model(model_path)
     # Load dataset
-    dataset = load_data(data_path)
+    dataset = pd.read_csv(data_path)
     # Evaluate model
     evaluate_model(model, vectorizer, tfidf_transformer, dataset)
