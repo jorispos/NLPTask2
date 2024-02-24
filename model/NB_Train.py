@@ -34,8 +34,8 @@ def prepare_data(train_path, val_path):
 
 def train_and_evaluate(X_train, y_train, X_val, y_val):
     print("Training the model...")
-    model = ComplementNB()
-    model.fit(X_train, y_train)
+    model = ComplementNB(alpha=1, force_alpha=True, fit_prior=True, class_prior=None, norm=False)
+    model.fit(X_train, y_train, sample_weight=1)
 
     # Predict on validation set
     y_pred = model.predict(X_val)
