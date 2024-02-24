@@ -2,7 +2,8 @@ import string
 from nltk.corpus import stopwords
 import pandas as pd
 from pathlib import Path
-
+import nltk
+nltk.download('stopwords')
 
 def clean_text(doc):
     doc = doc.lower()
@@ -22,10 +23,33 @@ def clean_text(doc):
     doc = " ".join(tokens)
     return doc
 
+# Load train data
+file_name_train = Path(__file__).parent.parent / "data" / "train_data.csv"
+df_train = pd.read_csv(file_name_train, sep=';')
+df_train = df_train.drop(columns=["article_id"])
+df_train['essay'] = df_train['essay'].apply(lambda x: clean_text(x))
 
-file_name = Path(__file__).parent.parent / "data" / "messages.csv"
-df = pd.read_csv(file_name)
-df = df.drop(columns = ["message_id","response_id","article_id"])
-cleaned_df = df
-cleaned_df['essay'] = df['essay'].apply(lambda x: clean_text(x))
-print(cleaned_df)
+# Splitting train data into train and val sets
+train_size = int(0.7 * len(df_train))
+train_dataset = df_train[:train_size]
+val_dataset = df_train[train_size:]
+train_dataset = train_dataset.reset_index(drop=True)
+val_dataset = val_dataset.reset_index(drop=True)
+
+# Load test data
+file_name_test = Path(__file__).parent.parent / "data" / "test_data.csv"
+df_test = pd.read_csv(file_name_test, sep=';')
+df_test = df_test.drop(columns=["article_id"])
+df_test['essay'] = df_test['essay'].apply(lambda x: clean_text(x))
+df_test = df_test.reset_index(drop=True)
+
+# Display the datasets (optional)
+print("Train Dataset:")
+print(train_dataset.head())
+print("Length of Train Dataset:", len(train_dataset))
+print("\nValidation Dataset:")
+print(val_dataset.head())
+print("Length of Validation Dataset:", len(val_dataset))
+print("\nTest Dataset:")
+print(df_test.head())
+print("Length of Test Dataset:", len(df_test))
