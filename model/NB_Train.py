@@ -63,10 +63,11 @@ def train_and_evaluate(X_train, y_train, X_val, y_val):
 
     return model
 
-# Train and evaluate
-X_train, y_train, X_val, y_val, vectorizer, tfidf_transformer = prepare_data(train_path, val_path)
-model = train_and_evaluate(X_train, y_train, X_val, y_val)
+if __name__ == "__main__":
+    # Train and evaluate
+    X_train, y_train, X_val, y_val, vectorizer, tfidf_transformer = prepare_data(train_path, val_path)
+    model = train_and_evaluate(X_train, y_train, X_val, y_val)
 
-# Save the model + vectorizer
-with open(output_path, 'wb') as f:
-    pkl.dump((model, vectorizer, tfidf_transformer), f)
+    # Save the model + vectorizer
+    with open(output_path, 'wb') as f:
+        pkl.dump((model, vectorizer, tfidf_transformer), f)
