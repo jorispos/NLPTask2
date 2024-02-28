@@ -42,9 +42,9 @@ def train_and_evaluate(X_train, y_train, X_val, y_val):
 
     # Evaluate
     accuracy = accuracy_score(y_val, y_pred)
-    f1 = f1_score(y_val, y_pred, average='macro')
-    precision = precision_score(y_val, y_pred, average='macro')
-    recall = recall_score(y_val, y_pred, average='macro')
+    f1 = f1_score(y_val, y_pred, average='weighted')
+    precision = precision_score(y_val, y_pred, average='weighted')
+    recall = recall_score(y_val, y_pred, average='weighted')
     cm = confusion_matrix(y_val, y_pred)
 
     print(f"Validation Accuracy: {accuracy}")

@@ -25,9 +25,9 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
 
     # Calculate metrics
     accuracy = accuracy_score(y_true, y_pred)
-    f1 = f1_score(y_true, y_pred, average='macro')
-    precision = precision_score(y_true, y_pred, average='macro')
-    recall = recall_score(y_true, y_pred, average='macro')
+    f1 = f1_score(y_true, y_pred, average='weighted')
+    precision = precision_score(y_true, y_pred, average='weighted')
+    recall = recall_score(y_true, y_pred, average='weighted')
     cm = confusion_matrix(y_true, y_pred)
 
     # Print metrics
