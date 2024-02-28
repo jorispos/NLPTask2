@@ -8,7 +8,7 @@ import pandas as pd
 
 # Paths to training data and model
 model_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
-data_path = Path(__file__).parent.parent / "data" / "preprocessed" / "train_dataset.csv"
+data_path = Path(__file__).parent.parent / "data" / "preprocessed" / "test_dataset.csv"
 
 def load_model(model_path):
     with open(model_path, 'rb') as f:
