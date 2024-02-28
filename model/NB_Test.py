@@ -1,5 +1,6 @@
 import pandas as pd
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, \
+    ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
@@ -29,6 +30,12 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     precision = precision_score(y_true, y_pred, average='weighted')
     recall = recall_score(y_true, y_pred, average='weighted')
     cm = confusion_matrix(y_true, y_pred)
+    labels = sorted(y_true.unique())
+    print(str(labels))
+
+    cm_display = ConfusionMatrixDisplay(confusion_matrix=cm,)
+    cm_display.plot()
+    plt.show()
 
     # Print metrics
     print(f"Accuracy: {accuracy}")
@@ -37,11 +44,11 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     print(f"Recall: {recall}")
 
     # Plot confusion matrix
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-    plt.xlabel("Predicted Labels")
-    plt.ylabel("True Labels")
-    plt.title("Confusion Matrix")
-    plt.show()
+    # sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    # plt.xlabel("Predicted Labels")
+    # plt.ylabel("True Labels")
+    # plt.title("Confusion Matrix")
+    # plt.show()
 
 if __name__ == "__main__":
     # Load model + vectorizer
