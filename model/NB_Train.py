@@ -47,18 +47,13 @@ def train_and_evaluate(X_train, y_train, X_val, y_val):
     recall = recall_score(y_val, y_pred, average='weighted')
     cm = confusion_matrix(y_val, y_pred)
 
-
     print(f"Validation Accuracy: {accuracy}")
     print(f"F1 Score: {f1}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
 
-    # Get labels
-    labels = y_val.unique()
-
     # Plot confusion matrix
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=labels, yticklabels=labels)
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
     plt.xlabel("Predicted Labels")
     plt.ylabel("True Labels")
     plt.title("Confusion Matrix")
@@ -70,7 +65,6 @@ if __name__ == "__main__":
     # Train and evaluate
     X_train, y_train, X_val, y_val, vectorizer, tfidf_transformer = prepare_data(train_path, val_path)
     model = train_and_evaluate(X_train, y_train, X_val, y_val)
-
 
     # Save model + vectorizer
     with open(output_path, 'wb') as f:
