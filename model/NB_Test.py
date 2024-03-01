@@ -33,9 +33,8 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     recall = recall_score(y_true, y_pred, average='weighted')
     cm = confusion_matrix(y_true, y_pred)
     labels = sorted(y_true.unique())
-    print(str(labels))
 
-    cm_display = ConfusionMatrixDisplay(confusion_matrix=cm,)
+    cm_display = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
     cm_display.plot()
     plt.show()
 
@@ -44,13 +43,6 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     print(f"F1 Score: {f1}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
-
-    # Plot confusion matrix
-    # sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-    # plt.xlabel("Predicted Labels")
-    # plt.ylabel("True Labels")
-    # plt.title("Confusion Matrix")
-    # plt.show()
 
 
 if __name__ == "__main__":

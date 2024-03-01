@@ -3,7 +3,6 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.naive_bayes import ComplementNB
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
-import seaborn as sns
 from pathlib import Path
 import pickle as pkl
 import pandas as pd
@@ -11,7 +10,7 @@ import pandas as pd
 # Paths to preprocessed data
 train_path = Path(__file__).parent.parent / "data" / "preprocessed" / "train_dataset.csv"
 val_path = Path(__file__).parent.parent / "data" / "preprocessed" / "val_dataset.csv"
-output_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
+output_path = Path(__file__).parent.parent / "results" / "model_nb.pkl"
 
 
 def prepare_data(train_path, val_path):
@@ -49,23 +48,15 @@ def train_and_evaluate(X_train, y_train, X_val, y_val):
     recall = recall_score(y_val, y_pred, average='weighted')
     cm = confusion_matrix(y_val, y_pred)
     labels = sorted(y_val.unique())
-    print(str(labels))
-    #
+
     cm_display = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
     cm_display.plot()
     plt.show()
 
-    # print(f"Validation Accuracy: {accuracy}")
-    # print(f"F1 Score: {f1}")
-    # print(f"Precision: {precision}")
-    # print(f"Recall: {recall}")
-
-    # Plot confusion matrix
-    # sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-    # plt.xlabel("Predicted Labels")
-    # plt.ylabel("True Labels")
-    # plt.title("Confusion Matrix")
-    # plt.show()
+    print(f"Validation Accuracy: {accuracy}")
+    print(f"F1 Score: {f1}")
+    print(f"Precision: {precision}")
+    print(f"Recall: {recall}")
 
     return model
 

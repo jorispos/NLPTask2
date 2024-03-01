@@ -3,7 +3,9 @@ from nltk.corpus import stopwords
 import pandas as pd
 from pathlib import Path
 import nltk
+
 nltk.download('stopwords')
+
 
 def clean_text(doc):
     doc = doc.lower()
@@ -22,6 +24,7 @@ def clean_text(doc):
     # Join the tokens back into a single string with spaces in between
     doc = " ".join(tokens)
     return doc
+
 
 # Load train data
 file_name_train = Path(__file__).parent.parent / "data" / "raw" / "train_data_raw.csv"
