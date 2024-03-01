@@ -7,13 +7,15 @@ import pickle as pkl
 import pandas as pd
 
 # Paths to training data and model
-model_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
+model_path = Path(__file__).parent.parent / "results" / "model_nb.pkl"
 data_path = Path(__file__).parent.parent / "data" / "preprocessed" / "test_dataset.csv"
+
 
 def load_model(model_path):
     with open(model_path, 'rb') as f:
         model, vectorizer, tfidf_transformer = pkl.load(f)
     return model, vectorizer, tfidf_transformer
+
 
 def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     X = vectorizer.transform(dataset['essay'])
@@ -42,6 +44,7 @@ def evaluate_model(model, vectorizer, tfidf_transformer, dataset):
     plt.ylabel("True Labels")
     plt.title("Confusion Matrix")
     plt.show()
+
 
 if __name__ == "__main__":
     # Load model + vectorizer

@@ -13,11 +13,12 @@ train_path = Path(__file__).parent.parent / "data" / "preprocessed" / "train_dat
 val_path = Path(__file__).parent.parent / "data" / "preprocessed" / "val_dataset.csv"
 output_path = Path(__file__).parent.parent / "model" / "model_nb.pkl"
 
+
 def prepare_data(train_path, val_path):
     # Load datasets
     train_dataset = pd.read_csv(train_path)
     val_dataset = pd.read_csv(val_path)
-    
+
     # Vectorize text
     print("Vectorizing the text...")
     vectorizer = CountVectorizer(min_df=10)
@@ -31,6 +32,7 @@ def prepare_data(train_path, val_path):
     X_val_tfidf = tfidf_transformer.transform(X_val)
 
     return X_train_tfidf, train_dataset['emotion'], X_val_tfidf, val_dataset['emotion'], vectorizer, tfidf_transformer
+
 
 def train_and_evaluate(X_train, y_train, X_val, y_val):
     print("Training the model...")
@@ -60,6 +62,7 @@ def train_and_evaluate(X_train, y_train, X_val, y_val):
     plt.show()
 
     return model
+
 
 if __name__ == "__main__":
     # Train and evaluate
